@@ -22,4 +22,4 @@ in.rev.order <- which(sapply(words,in.rev.alpha.order))
 ordered.words <- words[in.order]
 rev.ordered.words <- words[in.rev.order]
 write(ordered.words,file="ordered_words.txt")
-write(words[in.order],file="rev_ordered_words.txt")
+write(rev.ordered.words,file="rev_ordered_words.txt")
