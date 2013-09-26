@@ -1,25 +1,53 @@
 #from http://www.r-bloggers.com/ascii-code-table-in-r/
 asc <- function(x) { strtoi(charToRaw(x),16L) }
 
-#Unix/FreeBSD word list
+#freebsd/unix words
 words <- scan('words.txt',what="",sep="\n")
-words <- tolower(words)
-#only 3 letter or greater words are interesting
-words <- words[which(sapply(words,function(w)nchar(w)>2))]
 
-in.alpha.order <- function(w){
+#Official Scrabble words 'twl06'
+scrabble.words <- scan('twl06.txt',what="",sep="\n")
+scrabble.words <- tolower(scrabble.words)
+
+in.alpha.order <- function(w,f=function(x){x}){
   wasc <- asc(w)
-  all(wasc == wasc[order(wasc)])  
+  all(wasc == wasc[f(order(wasc))]) 
 }
 
-in.rev.alpha.order <- function(w){
-  wasc <- asc(w)
-  all(wasc == wasc[rev(order(wasc))])  
+get.in.order.words <- function(ws,f=function(x){x}){
+  #only 3 letter or greater words are interesting to me
+  ws <- ws[which(sapply(ws,function(w)nchar(w)>2))]
+  in.order <- which(sapply(ws,in.alpha.order,f))
+  ws[in.order]
 }
 
-in.order <- which(sapply(words,in.alpha.order))
-in.rev.order <- which(sapply(words,in.rev.alpha.order))
-ordered.words <- words[in.order]
-rev.ordered.words <- words[in.rev.order]
+ordered.words <- get.in.order.words(words)
+rev.ordered.words <- get.in.order.words(words,f=rev)
+
 write(ordered.words,file="ordered_words.txt")
 write(rev.ordered.words,file="rev_ordered_words.txt")
+
+#for the scrabble fans out there
+source('scrabble.r')
+scrabble.ordered.words <- get.in.order.words(scrabble.words)
+scrabble.rev.ordered.words <- get.in.order.words(scrabble.words,f=rev)
+
+ordered.scores <- sapply(scrabble.ordered.words,sws)
+rev.ordered.scores <- sapply(scrabble.rev.ordered.words,sws)
+
+fill <- function(w,l){
+  d <- l-nchar(w)
+  paste(c(w,rep(' ',d)),sep="",collapse="")
+}
+
+format.words <- function(ws){
+  sapply(ws,fill,max(sapply(ws,nchar)+1))
+}
+
+combine <- function(ws,s){
+  or <-  rev(order(s))
+  ws <- format.words(ws)
+  paste(ws[or],s[or],sep=" : ",collapse="\n")
+}
+
+write(combine(scrabble.ordered.words,ordered.scores),file="scrabble_ordered.txt")
+write(combine(scrabble.rev.ordered.words,rev.ordered.scores),file="scrabble_rev_ordered.txt")
