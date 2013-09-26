@@ -2,10 +2,10 @@
 asc <- function(x) { strtoi(charToRaw(x),16L) }
 
 #freebsd/unix words
-words <- scan('words.txt',what="",sep="\n")
+words <- scan('./word_sources/words.txt',what="",sep="\n")
 
 #Official Scrabble words 'twl06'
-scrabble.words <- scan('twl06.txt',what="",sep="\n")
+scrabble.words <- scan('./word_sources/twl06.txt',what="",sep="\n")
 scrabble.words <- tolower(scrabble.words)
 
 in.alpha.order <- function(w,f=function(x){x}){
