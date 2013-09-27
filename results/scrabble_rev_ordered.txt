@@ -1,9 +1,7 @@
-zzz       : 30
 zonked    : 20
 zyme      : 18
 zoomed    : 18
 zigged    : 18
-yukked    : 18
 zonk      : 17
 jiff      : 17
 zooned    : 16
@@ -27,6 +25,7 @@ zoea      : 13
 zig       : 13
 zed       : 13
 yuppie    : 13
+yukked    : 13
 yoked     : 13
 woofed    : 13
 wolfed    : 13
@@ -74,6 +73,7 @@ polka     : 11
 pigged    : 11
 mecca     : 11
 jig       : 11
+zzz       : 10
 yupon     : 10
 yuk       : 10
 yonic     : 10
