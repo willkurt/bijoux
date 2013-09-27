@@ -4,6 +4,12 @@ and thought it was interesting that 'fox' was in alphabetical order.
 So during a quick break I threw this together to see all the words in English that
 had this property.
 
-files:
+word sources:
+twl06.txt  - official Scrabble word list (178,691 words) 
+word.txt - FreeBSD/Unix word list (235,882 word)
+
+results:
 ordered_words.txt - english words > 2 letter long that are in alphabetical order
 rev_ordered_words.txt - english words > 2 letter long that are in reverse alphabetical order
+scrabble_ordered.txt - same as ordered_words.txt but from the scrabble list, with score in order
+scrabble_rev_ordered.txt - same as rev_ordered_words.txt but from the scrabble list, with score in order
