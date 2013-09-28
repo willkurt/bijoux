@@ -43,12 +43,13 @@
 <p>This seemed like a very easy question to answer, the biggest challange being to get a list of English language words. For this I just went to the Unix/FreeBSD word list from <em>/usr/share/dict/words</em>. Being lazy and it being lunch I just grabbed the list <a href="http://www.freebsd.org/cgi/cvsweb.cgi/src/share/dict/web2?rev=1.12;content-type=text%2Fplain">from a website</a>
 From there the basic code was pretty simple:
 </p>
-<pre><code>in.alpha.order <- function(w){
-  wasc <- asc(w)
-  all(wasc == wasc[order(wasc)]) 
+<pre><code>in.alpha.order <- function(w,f=function(x){x}){
+  wasc <- strsplit(w,"")[[1]]
+  all(wasc == wasc[f(order(wasc))]) 
 }
+
 </code></pre>
-<p>Where <em>asc</em> is a function to get the ascii value of a letter, all that needs to be done is to see if the ordered vector of ascii values matches the original (looking at it again, conversting to a vector of chars would probably be better).
+<p>
 After this point getting words with alphabetically orderd words out is just a matter of taking a list of all words and taking the ones that match this<p>
 <pre><code>get.in.order.words <- function(ws){
   #only 3 letter or greater words are interesting to me
