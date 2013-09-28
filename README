@@ -1,8 +1,12 @@
-I saw this picture (http://i.imgur.com/n8gnC2Q.jpg) on some social site
+For more thorough rundown see: http://willkurt.github.io/bijoux/
+
+I saw this picture (http://i.imgur.com/n8gnC2Q.jpg) on reddit
 and thought it was interesting that 'fox' was in alphabetical order.
 
 So during a quick break I threw this together to see all the words in English that
 had this property.
+
+This then led into a diversion searching for the highest scoring Scrabble word with this property.
 
 word sources:
 twl06.txt  - official Scrabble word list (178,691 words) 
