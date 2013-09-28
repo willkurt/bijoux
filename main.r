@@ -8,9 +8,6 @@ outdir <- function(file){
   paste("./results",file,sep="/")
 }
 
-#from http://www.r-bloggers.com/ascii-code-table-in-r/
-asc <- function(x) { strtoi(charToRaw(x),16L) }
-
 #freebsd/unix words
 words <- scan(srcdir("words.txt"),what="",sep="\n")
 
@@ -19,7 +16,7 @@ scrabble.words <- scan(srcdir('twl06.txt'),what="",sep="\n")
 scrabble.words <- tolower(scrabble.words)
 
 in.alpha.order <- function(w,f=function(x){x}){
-  wasc <- asc(w)
+  wasc <- strsplit(w,"")[[1]]
   all(wasc == wasc[f(order(wasc))]) 
 }
 
