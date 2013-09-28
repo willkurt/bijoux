@@ -19,7 +19,7 @@
 
         <header>
           <img src="./images/bijoux.png" alt="Bijoux">
-          <h2>Finding the highest scoring Scrabble word with all of it's letters in alphabetical order!</h2>
+          <h2>Finding the highest scoring Scrabble word with all of its letters in alphabetical order!</h2>
         </header>
 
         <section id="downloads" class="clearfix">
@@ -37,7 +37,7 @@
 <p>The other day I came across a story on reddit that contained the following picture:
 </p>
 <img src="http://i.imgur.com/n8gnC2Q.jpg" alt="letters" width="400">
-<p>The purpose of the image was clearly to demonstrate that the student took the instructions too seriously and wrote all the words with there letters in alphabetical order. What I found really interesting was that the word <strong>fox</strong> was the same, so it's letters were alread in alphabetical order.</p>
+<p>The purpose of the image was to demonstrate that the student took the instructions too seriously and wrote all the words with there letters in alphabetical order. What I found really interesting was that the word <em>fox</em> was the same, so it's letters were alread in alphabetical order.</p>
 
 <p>The obvious question then was <em>What other words in English also have all their letters in alphabetical order?</em></p>
 <p>This seemed like a very easy question to answer, the biggest challange being to get a list of English language words. For this I just went to the Unix/FreeBSD word list from <em>/usr/share/dict/words</em>. Being lazy and it being lunch I just grabbed the list <a href="http://www.freebsd.org/cgi/cvsweb.cgi/src/share/dict/web2?rev=1.12;content-type=text%2Fplain">from a website</a>
@@ -58,15 +58,15 @@ After this point getting words with alphabetically orderd words out is just a ma
   ws[in.order]
 }
 </code></pre>
-<p>From that it I had this list of <a href="https://github.com/willkurt/bijoux/blob/master/results/ordered_words.txt">alphabetically ordered English words</a>, with a few tweak a list of <a href="https://github.com/willkurt/bijoux/blob/master/results/rev_ordered_words.txt">reverse alphabetically ordered words</a>, and plenty of time for lunch.</p>
+<p>From that I had this list of <a href="https://github.com/willkurt/bijoux/blob/master/results/ordered_words.txt">alphabetically ordered English words</a>, with a few tweaks a list of <a href="https://github.com/willkurt/bijoux/blob/master/results/rev_ordered_words.txt">reverse alphabetically ordered words</a>, and plenty of time for lunch.</p>
 <p>I thought this was pretty cool and shared it with a few friends...</p>
 
 <h3><a name="from_distraction" class="anchor" href="#from_distraction"><span class="octicon octicon-link"></span></a>From Distraction.</h3>
 <p>Shortly after sharing a brief twitter conversation brought up a really interesting question:</p>
 <img src="./images/tweets.png">
-<p><em>Scrabble!</em> of course what fun thing to find out. I'm not a particularlly big scrabble player myself, but I know enough Scrabble nerds to know that if I found an illegal Scrabble word as the highest scoring I would never hear the end of it. So I decided to find a better words list before even worrying about scoring.</p>
+<p><em>Scrabble!</em> Of course what a fun thing to find out. I'm not a particularlly big scrabble player myself, but I know enough Scrabble nerds to know that if I found an illegal Scrabble word as the highest scoring I would never hear the end of it. So I decided to find a better words list before even worrying about scoring.</p>
 <p>Although there are a few options of words lists, I went with the <a href="http://en.wikipedia.org/wiki/Official_Tournament_and_Club_Word_List">Official Tournament and Club Word List</a> typically abbreviated <a href="https://raw.github.com/willkurt/bijoux/master/word_sources/twl06.txt">TWL06</a>.</p>
-<p>Next all I had to do was the scoring function which I though would be pretty trivial. If you're not familiar with Scrabble, each letter has a point value associate with it and the base score for the word is simply the sum of the values of all the letters in the word.</p>
+<p>Next all I had to do was write the scoring function which I though would be pretty trivial. If you're not familiar with Scrabble, each letter has a point value associate with it and the base score for the word is simply the sum of the values of all the letters in the word.</p>
 <pre><code>#scrabble word score
 sws <- function(w){
   wv <- strsplit(w,"")[[1]]
@@ -85,7 +85,7 @@ sls <- function(l){
   else{return(0)}
 }
 </code></pre>
-<p>The code was simple enough, a function to look up the letter value and then another to map across the vector of letters. Now I had my scores time to see what the highest scoring Scrabble words with all of it's letters in alphabetical order was! Worth a total of 30 points it was:</p>
+<p>The code was simple enough, a function to look up the letter value and then another to map across the vector of letters. Now that I had my scores it was time to see what the highest scoring Scrabble words with all of it's letters in alphabetical order was! Worth a total of 30 points it was:</p>
 <img src="./images/zzz.png">
 <p>...which was actually pretty lame. Good thing I missed something essential in my scoring function!</p>
 <h3><a name="by_distraction" class="anchor" href="#by_distraction"><span class="octicon octicon-link"></span></a>By Distraction.</h3>
@@ -114,7 +114,7 @@ impossible.points <- function(wv){
 </code></pre>
 <p>Essentially, look for the number of letters larger than is possible given in the <em>letter.dists</em> table, multiply that by the letter score, repeat for all letters in the word and finally subtract this from the original score. After that the new top scoring words is:</p>
   <img src="./images/bijoux.png" alt="Bijoux">
-  <p>And also <a href="https://github.com/willkurt/bijoux/blob/master/results/scrabble_ordered.txt">a list of all alphabetically ordered scrabble words with their scores</a> (ordered by score)!</p>
+  <p>You can also explore <a href="https://github.com/willkurt/bijoux/blob/master/results/scrabble_ordered.txt">a list of all alphabetically ordered scrabble words with their scores</a> (ordered by score)!</p>
 
   </section>
 
