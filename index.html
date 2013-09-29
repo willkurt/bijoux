@@ -37,10 +37,10 @@
 <p>The other day I came across a story on reddit that contained the following picture:
 </p>
 <img src="http://i.imgur.com/n8gnC2Q.jpg" alt="letters" width="400">
-<p>The purpose of the image was to demonstrate that the student took the instructions too seriously and wrote all the words with there letters in alphabetical order. What I found really interesting was that the word <em>fox</em> was the same, so it's letters were alread in alphabetical order.</p>
+<p>The purpose of the image was to demonstrate that the student took the instructions too seriously and wrote all the words with their letters in alphabetical order. What I found really interesting was that the word <em>fox</em> was the same, so its letters were already in alphabetical order.</p>
 
 <p>The obvious question then was <em>What other words in English also have all their letters in alphabetical order?</em></p>
-<p>This seemed like a very easy question to answer, the biggest challange being to get a list of English language words. For this I just went to the Unix/FreeBSD word list from <em>/usr/share/dict/words</em>. Being lazy and it being lunch I just grabbed the list <a href="http://www.freebsd.org/cgi/cvsweb.cgi/src/share/dict/web2?rev=1.12;content-type=text%2Fplain">from a website</a>
+<p>This seemed like a very easy question to answer, the biggest challenge being to get a list of English language words. For this I just went to the Unix/FreeBSD word list from <em>/usr/share/dict/words</em>. Being lazy and it being lunch I just grabbed the list <a href="http://www.freebsd.org/cgi/cvsweb.cgi/src/share/dict/web2?rev=1.12;content-type=text%2Fplain">from a website</a>.
 From there the basic code was pretty simple:
 </p>
 <pre><code>in.alpha.order <- function(w,f=function(x){x}){
@@ -50,7 +50,7 @@ From there the basic code was pretty simple:
 
 </code></pre>
 <p>
-After this point getting words with alphabetically orderd words out is just a matter of taking a list of all words and taking the ones that match this<p>
+After this point getting words with alphabetically orderd words out is just a matter of taking a list of all words and taking the ones that match this test.<p>
 <pre><code>get.in.order.words <- function(ws){
   #only 3 letter or greater words are interesting to me
   ws <- ws[which(sapply(ws,function(w)nchar(w)>2))]
@@ -62,9 +62,9 @@ After this point getting words with alphabetically orderd words out is just a ma
 <p>I thought this was pretty cool and shared it with a few friends...</p>
 
 <h3><a name="from_distraction" class="anchor" href="#from_distraction"><span class="octicon octicon-link"></span></a>From Distraction.</h3>
-<p>Shortly after sharing a brief twitter conversation brought up a really interesting question:</p>
-<img src="./images/tweets.png">
-<p><em>Scrabble!</em> Of course what a fun thing to find out. I'm not a particularlly big scrabble player myself, but I know enough Scrabble nerds to know that if I found an illegal Scrabble word as the highest scoring I would never hear the end of it. So I decided to find a better words list before even worrying about scoring.</p>
+<p>Shortly after sharing, a brief twitter conversation brought up a really interesting question:</p>
+<img src="./images/tweets.png" alt="scrabble score conversation">
+<p><em>Scrabble score!</em> Of course what a fun thing to find out. I'm not a particularlly big scrabble player myself, but I know enough Scrabble nerds to know that if I found an illegal Scrabble word as the highest scoring I would never hear the end of it. So I decided to find a better words list before even worrying about scoring.</p>
 <p>Although there are a few options of words lists, I went with the <a href="http://en.wikipedia.org/wiki/Official_Tournament_and_Club_Word_List">Official Tournament and Club Word List</a> typically abbreviated <a href="https://raw.github.com/willkurt/bijoux/master/word_sources/twl06.txt">TWL06</a>.</p>
 <p>Next all I had to do was write the scoring function which I though would be pretty trivial. If you're not familiar with Scrabble, each letter has a point value associate with it and the base score for the word is simply the sum of the values of all the letters in the word.</p>
 <pre><code>#scrabble word score
@@ -86,14 +86,14 @@ sls <- function(l){
 }
 </code></pre>
 <p>The code was simple enough, a function to look up the letter value and then another to map across the vector of letters. Now that I had my scores it was time to see what the highest scoring Scrabble words with all of it's letters in alphabetical order was! Worth a total of 30 points it was:</p>
-<img src="./images/zzz.png">
+<img src="./images/zzz.png" alt="zzz">
 <p>...which was actually pretty lame. Good thing I missed something essential in my scoring function!</p>
 <h3><a name="by_distraction" class="anchor" href="#by_distraction"><span class="octicon octicon-link"></span></a>By Distraction.</h3>
 <p>After I posted this list I immediately got 2 nearly identical responses:</p>
-<img src="./images/fb_response.png"><br/>
-<img src="./images/gh_issue.png">
-<p>It turns out there's a really interesting scoring problem with my initial implementation. There's a <a href="http://en.wikipedia.org/wiki/Scrabble_letter_distributions">specific distribution</a> to letters in scrabble.</p>
-<img src="./images/tiles.jpg">
+<img src="./images/fb_response.png" alt="facebook response"><br/>
+<img src="./images/gh_issue.png" alt="github issues response">
+<p>It turns out there is a really interesting problem with my initial scoring implementation. There's a <a href="http://en.wikipedia.org/wiki/Scrabble_letter_distributions">specific distribution</a> to letters in scrabble.</p>
+<img src="./images/tiles.jpg" alt="scrabble letters">
 <p>As can be seen from the image there's only 1 <em>Z</em> (and <em>K</em>, <em>J</em>, <em>X</em>, and <em>Q</em> for that matter). So the word <em>ZZZ</em> cannot be constructed with all <em>Z</em>s!
 So why is it a valid Scrabble word? Scrabble lets you use <em>blanks</em>, but they're worth <strong>0</strong> points! So <em>ZZZ</em> is really worth <strong>just 10 points!</strong></p>
 <p>So clearly my scoring function had to be rewritten to take this into account. I decided the best approach would be to score the word as before, but after that subtract impossible points.</p>
