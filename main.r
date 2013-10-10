@@ -1,6 +1,4 @@
-
-
-
+library(ScrabbleScore)
 srcdir <- function(file){
   paste("./word_sources",file,sep="/")
 }
@@ -12,8 +10,7 @@ outdir <- function(file){
 words <- scan(srcdir("words.txt"),what="",sep="\n")
 
 #Official Scrabble words 'twl06'
-scrabble.words <- scan(srcdir('twl06.txt'),what="",sep="\n")
-scrabble.words <- tolower(scrabble.words)
+data(twl06)#scan(srcdir('twl06.txt'),what="",sep="\n")
 
 in.alpha.order <- function(w,f=function(x){x}){
   wasc <- strsplit(w,"")[[1]]
@@ -33,13 +30,14 @@ rev.ordered.words <- get.in.order.words(words,f=rev)
 write(ordered.words,file=outdir("ordered_words.txt"))
 write(rev.ordered.words,file=outdir("rev_ordered_words.txt"))
 
-#for the scrabble fans out there
-source('scrabble.r')
-scrabble.ordered.words <- get.in.order.words(scrabble.words)
-scrabble.rev.ordered.words <- get.in.order.words(scrabble.words,f=rev)
 
-ordered.scores <- sapply(scrabble.ordered.words,sws)
-rev.ordered.scores <- sapply(scrabble.rev.ordered.words,sws)
+
+scrabble.ordered.words <- get.in.order.words(twl06)
+scrabble.rev.ordered.words <- get.in.order.words(twl06,f=rev)
+
+
+ordered.scores <- sws(scrabble.ordered.words)
+rev.ordered.scores <- sws(scrabble.rev.ordered.words)
 
 fill <- function(w,l){
   d <- l-nchar(w)
