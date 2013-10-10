@@ -10,7 +10,7 @@ outdir <- function(file){
 words <- scan(srcdir("words.txt"),what="",sep="\n")
 
 #Official Scrabble words 'twl06'
-data(twl06)#scan(srcdir('twl06.txt'),what="",sep="\n")
+data(twl06)
 
 in.alpha.order <- function(w,f=function(x){x}){
   wasc <- strsplit(w,"")[[1]]
@@ -30,11 +30,8 @@ rev.ordered.words <- get.in.order.words(words,f=rev)
 write(ordered.words,file=outdir("ordered_words.txt"))
 write(rev.ordered.words,file=outdir("rev_ordered_words.txt"))
 
-
-
 scrabble.ordered.words <- get.in.order.words(twl06)
 scrabble.rev.ordered.words <- get.in.order.words(twl06,f=rev)
-
 
 ordered.scores <- sws(scrabble.ordered.words)
 rev.ordered.scores <- sws(scrabble.rev.ordered.words)
