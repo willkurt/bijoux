@@ -8,8 +8,9 @@ had this property.
 
 This then led into a diversion searching for the highest scoring Scrabble word with this property.
 
+This lead to the creation of the ScrabbleScore package on CRAN: http://cran.us.r-project.org/web/packages/ScrabbleScore/index.html
+
 word sources:
-twl06.txt  - official Scrabble word list (178,691 words) 
 word.txt - FreeBSD/Unix word list (235,882 word)
 
 results:
